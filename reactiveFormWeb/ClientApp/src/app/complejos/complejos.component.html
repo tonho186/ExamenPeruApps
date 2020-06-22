@@ -1,0 +1,29 @@
+<h1>Complejos</h1>
+
+<button [routerLink]='["/complejos-agregar"]' class="btn btn-primary">Agregar Complejo</button>
+
+<p *ngIf="!(complejos && complejos.length)">
+  No existen registros para mostrar
+</p>
+
+<table class="table" *ngIf="complejos && complejos.length">
+  <thead>
+    <tr>
+      <th>Localización</th>
+      <th>Jefe</th>
+      <th>Área</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let complejo of complejos">
+      <td>{{complejo.localizacion}}</td>
+      <td>{{complejo.jefe}}</td>
+      <td>{{complejo.area}}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]='["/complejos-editar/" + complejo.id]'>Editar</button>
+        <button class="btn btn-danger" (click)="delete(complejo)">Borrar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,130 @@
+<h1>Agregar Persona</h1>
+<form class="form-horizontal" novalidate
+      (ngSubmit)="save()" [formGroup]="formGroup">
+  <fieldset>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('localizacion').touched || formGroup.get('localizacion').dirty) && !formGroup.get('localizacion').valid }">
+      <label class="col-md-2 control-label"
+             for="localizacionId">Localizacion</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="localizacionId"
+               type="text"
+               required
+               formControlName="localizacion" />
+        <span class="help-block" *ngIf="(formGroup.get('localizacion').touched || formGroup.get('localizacion').dirty) && formGroup.get('localizacion').errors">
+          <span *ngIf="formGroup.get('localizacion').errors.required">
+            El campo localizacion es requerido
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('jefe').touched || formGroup.get('jefe').dirty) && !formGroup.get('jefe').valid }">
+      <label class="col-md-2 control-label"
+             for="jefe">Jefe</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="jefe"
+               type="text"
+               required
+               formControlName="jefe" />
+        <span class="help-block" *ngIf="(formGroup.get('jefe').touched || formGroup.get('jefe').dirty) && formGroup.get('jefe').errors">
+          <span *ngIf="formGroup.get('jefe').errors.required">
+            El campo Jefe es requerido
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': (formGroup.get('area').touched || formGroup.get('area').dirty) && !formGroup.get('area').valid }">
+      <label class="col-md-2 control-label"
+             for="area">área</label>
+
+      <div class="col-md-8">
+        <input class="form-control"
+               id="area"
+               type="number"
+               required
+               formControlName="area" />
+        <span class="help-block" *ngIf="(formGroup.get('area').touched || formGroup.get('area').dirty) && formGroup.get('area').errors">
+          <span *ngIf="formGroup.get('area').errors.required">
+            El campo Area es requerido
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <a class="btn btn-primary" (click)="agregarEvento()">Agregar Evento</a>
+    </div>
+
+    <div formArrayName="eventos"
+         *ngFor="let evento of formGroup.get('eventos').controls; let i = index;">
+      <div [formGroupName]="i">
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'fecha' + i">
+            Fecha
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'fecha' + i" type="date" formControlName="fecha" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'duracion' + i">
+            Duración
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'duracion' + i" type="text" formControlName="duracion" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'numParticipantes' + i">
+            Nº Participantes
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'numParticipantes' + i" type="text" formControlName="numParticipantes" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label" [attr.for]="'numComisarios' + i">
+            Nº Comisarios
+          </label>
+          <div class="col-md-8">
+            <input class="form-control" [attr.id]="'numComisarios' + i" type="text" formControlName="numComisarios" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-10">
+            <button type="button" class="btn btn-danger pull-right" (click)="removerEvento(i)">Remover</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-4 col-md-offset-2">
+        <span>
+          <button class="btn btn-primary"
+                  type="submit"
+                  [disabled]="!formGroup.valid">
+            Salvar
+          </button>
+          <button class="btn"
+                  type="button"
+                  [routerLink]='["/personas"]'>
+            Cancelar
+          </button>
+        </span>
+
+      </div>
+
+    </div>
+  </fieldset>
+</form>
+
